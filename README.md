@@ -1,1 +1,5 @@
-hrs
+Trabajo Programacion Web
+
+Integrantes: ALEX GABRIEL NUNEZ GALLEGOS
+             DIEGO ALEJANDRO ALVAREZ VARGAS
+             SEBASTIAN ALFREDO VALENZUELA HENRIQUEZ
