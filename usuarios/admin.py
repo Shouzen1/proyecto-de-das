@@ -5,4 +5,3 @@ from .models import *
 
 admin.site.register(Usuario)
 admin.site.register(Direccion)
-admin.site.register(Carrito_de_Compra)

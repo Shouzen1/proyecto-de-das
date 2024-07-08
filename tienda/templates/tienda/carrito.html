@@ -1,18 +1,14 @@
-{% extends 'base.html' %}
-
-{% block titulo %}Artistas{% endblock %}
-
-
-{% block contenido %}
+{% block carrito %}
 Este va a ser el contenido
 <p>p</p>
+<p>Total: {{carrito.total}}</p>
+<p>Estado: {{carrito.estado}}</p>
 <p>p</p>
-<p>p</p>
-<p>p</p>
-{% for artista in artistas %}
+{% for cantidadproducto in carrito.productos.all %}
 <form method="post">
 	{% csrf_token %}
- El artista es: {{artista.nombre}}
+la obra: {{cantidadproducto.productos.nombre}}
+fue añadida una cantidad: {{cantidadproducto.cantidad}}
 <input type="hidden" name="artista_id" value="{{artista.id}}">
 <input type="submit" name="Editar_artista" value="Editar"> <br><input type="submit" name="Eliminar_artista" value="Eliminar"> <br>
 
