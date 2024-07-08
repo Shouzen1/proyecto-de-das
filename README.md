@@ -6,7 +6,7 @@ Historia de usuarios:
 -Un usuario entra a la pagina y que pueda ver información sobre artistas famosos (ranking), su historia y obras más famosas y conocidas.
 -Un usuario puede votar por autores y obras de artes
 -Un usuario puede buscar autores y puede buscar obras de arte.
--Un usuario registrado puede acceder a promociones especiales.
+-Un usuario registrado puede acceder a promociones especiales
 -Un usuario puede acceder al carrito de comprar para añadir i/o quitar productos
 
 Requerimientos funcionales:
