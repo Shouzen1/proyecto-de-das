@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Listar Obras de Arte</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        li strong {
+            font-size: 20px;
+            color: #333;
+        }
+        li img {
+            max-width: 100%;
+            display: block;
+            margin-top: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Listado de Obras de Arte</h1>
+    <ul>
+        {% for obra in obras %}
+        <li>
+            <strong>{{ obra.titulo }}</strong><br>
+            {{ obra.descripcion }}<br>
+            {% if obra.imagen %}
+            <img src="{{ obra.imagen.url }}" alt="{{ obra.titulo }}" style="max-width: 300px;">
+            {% endif %}
+        </li>
+        {% empty %}
+        <li>No hay obras de arte aún.</li>
+        {% endfor %}
+    </ul>
+    
+    <br><br>
+    <a href="http://127.0.0.1:8000/alumnos/añadir/">Añadir una nueva Obra de Arte</a><br></body>
+</html>

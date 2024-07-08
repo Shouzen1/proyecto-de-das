@@ -1,0 +1,238 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grupo Cer0</title>
+    <style>
+        .weather-widget {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+            position: relative;
+        }
+        .weather-widget h1 {
+            margin: 10px 0;
+            font-size: 24px;
+        }
+        .weather-widget p {
+            margin: 5px 0;
+            font-size: 18px;
+        }
+        .ad-banner {
+            background-color: black;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+        }
+    </style>
+    <link rel="shortcut icon" href="pngtree-museum-icon-capital-png-image_10604489.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+
+<body style="background-color: #383B43;">
+    <!--NavBar-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark border-bottom border-body">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+                aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarScroll">
+                <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+                    <!--boton log in-->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="http://127.0.0.1:8000/alumnos/account">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="http://127.0.0.1:8000/alumnos/carrito">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0m7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0m-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708" />
+                            </svg>
+                        </a>
+                    </li>
+                    <!--boton link-->
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Opciones
+                        </a>
+                        <!--opciones del boton link-->
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="http://127.0.0.1:8000/alumnos/nosotros">Nosotros</a></li>
+
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="http://127.0.0.1:8000/alumnos/account">Cerrar sesión</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-search" viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <!--Aquí Empiezan las cards-->
+    <div class="d-flex flex-wrap justify-content-around">
+        <!--Card de Miguel Angel-->
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+            <img src='{% static "imagenes\miguel.jpg" %}' class="card-img-top" alt="miguel">
+            <div class="card-body">
+                <h5 class="card-title">Miguel Angel</h5>
+                <p class="card-text">Miguel Ángel, fue un arquitecto, escultor, pintor y poeta italiano renacentista,
+                    considerado uno de los más grandes artistas de la historia tanto por sus esculturas como por sus
+                    pinturas y obra arquitectónica.</p>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="popover" title="Datos"
+                    data-bs-content="
+                    ¿Sabías que esculpió dos de sus obras más conocidas, la Piedad y el David, antes de los 30 años? ,
+                    nacio un 6/3/1475 y murio un 18/2/1564,
+                    Se pintó a sí mismo,
+                    ¿Sabías que estuvo trabajando hasta casi el mismo día que murió?,
+                    ¿Sabías que se le daba muy bien la poesía?">
+                    Ver datos
+                </button>
+                <a href="http://127.0.0.1:8000/alumnos/miguel" class="btn btn-primary">Ver más</a>
+            </div>
+        </div>
+        <!--Card de Vincent van Gogh-->
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+            <img src='{% static "imagenes/Vincent_van_Goghfoto.jpg" %}' class="card-img-top" alt="van Gogh">
+            <div class="card-body">
+                <h5 class="card-title">Vincent van Gogh</h5>
+                <p class="card-text">Vincent van Gogh fue un artista postimpresionista holandés cuyos cuadros
+                    se cuentan entre los más populares y reconocibles de la historia. Su pincelada dramática, su
+                    exuberante
+                    paleta y su maestría para captar momentos en el tiempo y la luz revolucionaron el arte.</p>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="popover" title="Datos"
+                    data-bs-content="nacio un 30/3/1853 y murio un 29/71890,
+                    se Inspiraba de la culta Oriente,
+                    creaba una nueva obra cada 36 horas,
+                    Él era su propio modelo,
+                    Se cortó la oreja izquierda a raíz de una discusión con Gauguin">
+                    Ver datos
+                </button>
+                <a href="http://127.0.0.1:8000/alumnos/vincent" class="btn btn-primary">Ver más</a>
+            </div>
+        </div>
+        <!--Card de Frida Kahlo-->
+        <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+            <img src='{% static "imagenes/KAHLOESPANO2305-articleLarge-v13.webp" %}' class="card-img-top" alt="Frida Kahlo">
+            <div class="card-body">
+                <h5 class="card-title">Frida Kahlo</h5>
+                <p class="card-text">Frida Kahlo fue una pintora mexicana, reconocida por sus famosos autorretratos,
+                    calificados como parte del movimiento surrealista. La pintora, quien dijo no identificarse con el
+                    movimiento,
+                    creó un estilo propio tomando los aspectos de su vida, mezclándolos con los elementos de la
+                    naturaleza y la identidad mexicana.</p>
+                <button type="button" class="btn btn-secondary" data-bs-toggle="popover" title="Datos"
+                    data-bs-content="No estudió nada relacionado al arte,
+                    Su apariencia fue un representante de la cultura pop,
+                    se caso 2 veces con Diego Rivera,
+                    Frida y Diegose refugiaron a Leon Trotski,
+                    nacio un 6/7/1907 y murio un 13/7/1954">
+                    Ver datos
+                </button>
+                <a href="http://127.0.0.1:8000/alumnos/frida" class="btn btn-primary">Ver más</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- #Clima Publicidad -->
+    <div class="weather-widget">
+        <div class="ad-banner">Publicidad</div>
+        <h1>Clima en Viña del Mar, Chile</h1>
+        <p id="temperature">Cargando...</p>
+        <p id="description">Cargando...</p>
+    </div>
+
+    <script>
+        const apiKey = '262b06162ba3443aa2d44752241505';
+        const city = 'Viña del Mar';
+        const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&lang=es`;
+    
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const temperature = data.current.temp_c;
+                const description = data.current.condition.text;
+                document.getElementById('temperature').textContent = `Temperatura: ${temperature}°C`;
+                document.getElementById('description').textContent = `Descripción: ${description}`;
+            })
+            .catch(error => {
+                document.getElementById('temperature').textContent = 'No se pudo cargar el clima';
+                document.getElementById('description').textContent = 'Por favor, inténtelo más tarde';
+                console.error('Error al obtener los datos del clima:', error);
+            });
+    </script>
+
+    <!--Parte de abajo con un poco de info del museo-->
+    <footer class="text-light bg-dark pt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Horario</h5>
+                    <ul class="list-unstyled">
+                        <li>Martes a domingo, 8 a 23 horas</li>
+                        <li>Cerrado todos los lunes y feriados irrenunciables</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Ubicación</h5>
+                    <p>Pradera de la Cruz<br>Santiago, Chile</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p>+56 938157795<br>informaciones@museonacional.cl</p>
+                    <h5>Síguenos</h5>
+                </div>
+            </div>
+            <div class="text-center py-3">
+                <p>Apoyo Institucional</p>
+                <img src='{% static "imagenes/museo png.png" %}' alt="Logo de Apoyo Institucional" style="width: 500px;">
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Inicializar todos los popovers en la página
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+    </script>
+</body>
+
+</html>
