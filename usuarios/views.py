@@ -16,7 +16,7 @@ def sign_up(request):
             user.save()
             messages.success(request, 'You have singed up successfully.')
             login(request, user)
-            return redirect('crud_artista')
+            return redirect('home')
         else:
             return render(request, 'users/register.html', {'form': form})
         
@@ -24,7 +24,7 @@ def sign_in(request):
 
     if request.method == 'GET':
         if request.user.is_authenticated:
-            return redirect('crud_artista')
+            return redirect('home')
         
         form = LoginForm()
         return render(request,'users/login.html', {'form': form})
@@ -39,7 +39,16 @@ def sign_in(request):
             if user:
                 login(request, user)
                 messages.success(request,f'Hi {username.title()}, welcome back!')
-                return redirect('crud_artista')
+                return redirect('home')
         
         messages.error(request,f'Invalid username or password')
         return render(request,'users/login.html',{'form': form})
+
+def sign_out(request):
+    logout(request)
+    messages.success(request, 'You have successfully logged out.')
+    return redirect('home')
+
+def Home(request):
+    context = {}
+    return render(request, 'tienda/home.html', context)

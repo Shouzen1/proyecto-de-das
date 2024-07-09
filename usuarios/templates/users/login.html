@@ -3,10 +3,10 @@
 {% block contenido %}
 <form method="POST" novalidate>
 	{% csrf_token %}
-	<h2>Login</h2>
+	<h2>Inicio de Sesion</h2>
 	{{form.as_p}}
-	<input type="submit" value="Login" />
-	<p>Don't have an account? <a href="{%url 'register' %}">Register</a></p>
+	<input type="submit" value="Iniciar Sesion" />
+	<p>No tienes una cuenta? <a href="{%url 'register' %}">Registrarse</a></p>
 </form>
 
 {% endblock contenido%}

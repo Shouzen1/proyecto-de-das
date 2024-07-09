@@ -1,7 +1,5 @@
 
 from django.shortcuts import render
-from django.http import JsonResponse
-import json
 from .forms import ArtistaForm
 from .models import Artista
 from django.shortcuts import render, redirect
@@ -11,7 +9,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Artista, Obra, Carrito_de_Compra, Producto_Carrito
 from .forms import DireccionForm
-from django.contrib.auth.models import User
 
 def crud_artista(request):
     if request.POST:
@@ -124,3 +121,7 @@ def realizar_pago(request):
     carrito.estado = 'comprado'
     carrito.save()
     return render(request, 'compra.html', {'carrito': carrito})
+
+def Home(request):
+    context = {}
+    return render(request, 'tienda/home.html', context)
