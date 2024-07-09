@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Artista, Obra, Carrito_de_Compra, Producto_Carrito
 from .forms import DireccionForm
+from django.contrib.auth.models import User
 
 def crud_artista(request):
     if request.POST:
@@ -81,7 +82,9 @@ def añadir_direccion(request):
     if request.method == 'POST':
         form = DireccionForm(request.POST)
         if form.is_valid():
-            form.save()
+            direccion=form.save(commit=False)
+            direccion.usuario=(request.user)
+            direccion.save()
     return render(request, 'tienda/añadir_direccion.html', {'form': form})
 
 def realizar_pago(request):
