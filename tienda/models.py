@@ -19,9 +19,7 @@ class Obra(models.Model):
     fecha = models.CharField(max_length=100)
     precio = models.IntegerField()
     artista = models.ForeignKey(Artista,related_name='obras', on_delete=models.CASCADE)
-
-
-
+    
     def __str__(self):
         return self.nombre
     
@@ -31,7 +29,7 @@ class Voto(models.Model):
      
 class Carrito_de_Compra(models.Model):
     CARRITO_ESTADO = [
-        ("pendiente", "Pendiente"),
+          ("pendiente", "Pendiente"),
         ("comprado", "Comprado"),
     ]
     estado = models.CharField(max_length=100, choices=CARRITO_ESTADO)

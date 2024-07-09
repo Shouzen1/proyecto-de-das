@@ -7,8 +7,7 @@ from django.contrib.auth.models import User
 class Obra(forms.ModelForm):
     class Meta:
         model = Obra
-        fields = ['titulo', 'descripcion']
-
+        fields = fields = ['nombre', 'descripcion', 'fecha', 'precio', 'artista']
 
 class ArtistaForm(forms.ModelForm):
     class Meta:
