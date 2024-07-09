@@ -2,33 +2,27 @@
 
 {% block titulo %}Artistas{% endblock %}
 
-
 {% block contenido %}
-Este va a ser el contenido
 <p>Listado de los artistas</p>
 
-{% for artista in artistas %}
 <ul>
-	{% for artista in artistas %}
-		<li>{{ artista.nombre }} - {{ artista.descripcion }} - {{ artista.fecha }}
-			<form method="POST" style="display:inline;">
-				{% csrf_token %}
-				<input type="hidden" name="artista_id" value="{{ artista.id }}">
-				<button type="submit" name="Editar_artista">Editar</button>
-				<button type="submit" name="Eliminar_artista">Eliminar</button>
-			</form>
-		</li>
-	{% endfor %}
+    {% for artista in artistas %}
+        <li>{{ artista.nombre }} - {{ artista.descripcion }} - {{ artista.fecha }}
+            <form method="POST" style="display:inline;">
+                {% csrf_token %}
+                <input type="hidden" name="artista_id" value="{{ artista.id }}">
+                <button type="submit" name="Editar_artista">Editar</button>
+                <button type="submit" name="Eliminar_artista">Eliminar</button>
+            </form>
+        </li>
+    {% endfor %}
 </ul>
 
 <h2>Crear Artista</h2>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" name="Crear_artista">Crear</button>
-    </form>
-
-
-{% endfor %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="Crear_artista">Crear</button>
+</form>
 
 {% endblock %}
