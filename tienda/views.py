@@ -1,3 +1,12 @@
+
+from django.shortcuts import render
+from django.http import JsonResponse
+import json
+from .forms import ArtistaForm
+from .models import Artista
+from django.shortcuts import render, redirect
+# Create your views here.
+from .models import *
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Artista, Obra, Carrito_de_Compra, Producto_Carrito
@@ -6,22 +15,45 @@ from django.contrib.auth.models import User
 
 def crud_artista(request):
     if request.POST:
+        print("POST")
+
         if "obra_id" in request.POST:
             print("La obra a editar es:", request.POST['obra_id'])
 
         if "artista_id" in request.POST:
-            print("La autor a editar es:", request.POST['artista_id'])
+            print("El autor a editar es:", request.POST['artista_id'])
             artista_id = request.POST['artista_id']
             artista = Artista.objects.get(id=artista_id)
             
             if 'Editar_artista' in request.POST:
-                print("Lo vamos a editar", artista)
+                form = ArtistaForm(request.POST, instance=artista)
+                if form.is_valid():
+                    form.save()
+                    print("Lo hemos editado", artista)
+                return redirect('crud_artista')
+            
             if 'Eliminar_artista' in request.POST:
-                print("Lo vamos a eliminar", artista)
-    
-    carrito = request.user.carritos.filter(estado="pendiente").first()
+                artista.delete()
+                print("Lo hemos eliminado", artista)
+                return redirect('crud_artista')
+
+        if 'Crear_artista' in request.POST:
+            form = ArtistaForm(request.POST)
+            if form.is_valid():
+                form.save()
+                print("Artista creado")
+                return redirect('crud_artista')
+
+    carrito = request.user.carritos.filter(estado="pendiente")
+    if len(carrito) > 0:
+        carrito = carrito[0]
+    else:
+        carrito = None
+
     artistas = Artista.objects.all()
-    return render(request, 'tienda/crud_artista.html', {'artistas': artistas, 'carrito': carrito})
+    form = ArtistaForm()
+
+    return render(request, 'tienda/crud_artista.html', {'artistas': artistas, 'carrito': carrito, 'form': form})
 
 def CarritoCompras(request):
     context = {}

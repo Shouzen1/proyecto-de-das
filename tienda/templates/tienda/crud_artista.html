@@ -5,29 +5,28 @@
 
 {% block contenido %}
 Este va a ser el contenido
-<p>p</p>
-<p>p</p>
-<p>p</p>
-<p>p</p>
+<p>Listado de los artistas</p>
+
 {% for artista in artistas %}
-<form method="post">
-	{% csrf_token %}
- El artista es: {{artista.nombre}}
-<input type="hidden" name="artista_id" value="{{artista.id}}">
-<input type="submit" name="Editar_artista" value="Editar"> <br><input type="submit" name="Eliminar_artista" value="Eliminar"> <br>
-
- <br>
- </form>
- 	{% for obra in artista.obras.all %}
-		 <form method="post">
-		 	 {% csrf_token %}
-		 	-La obra es: {{obra.nombre}} 
-		 <input type="hidden" name="obra_id" value="{{obra.id}}">
-		 <input type="submit" name="Editar_obra" value="Editar"> <br>
-		 </form>
-
-
+<ul>
+	{% for artista in artistas %}
+		<li>{{ artista.nombre }} - {{ artista.descripcion }} - {{ artista.fecha }}
+			<form method="POST" style="display:inline;">
+				{% csrf_token %}
+				<input type="hidden" name="artista_id" value="{{ artista.id }}">
+				<button type="submit" name="Editar_artista">Editar</button>
+				<button type="submit" name="Eliminar_artista">Eliminar</button>
+			</form>
+		</li>
 	{% endfor %}
+</ul>
+
+<h2>Crear Artista</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" name="Crear_artista">Crear</button>
+    </form>
 
 
 {% endfor %}
