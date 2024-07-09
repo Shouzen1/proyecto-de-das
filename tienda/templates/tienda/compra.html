@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compra Realizada</title>
+</head>
+<body>
+    <h1>Compra Realizada</h1>
+    <p>Total: ${{ carrito.total }}</p>
+    <p>Dirección de Envío:</p>
+    <p>{{ carrito.direccion.calle }} {{ carrito.direccion.numero }}</p>
+    <p>{{ carrito.direccion.comuna }}, {{ carrito.direccion.ciudad }}</p>
+    <p>{{ carrito.direccion.pais }}</p>
+    <p>Teléfono: {{ carrito.direccion.telefono }}</p>
+    <h2>Productos en el Carrito</h2>
+    {% for cantidadproducto in carrito.productos.all %}
+        <div>
+            <p>La obra: {{ cantidadproducto.productos.nombre }} fue añadida una cantidad: {{ cantidadproducto.cantidad }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+</body>
+</html>
