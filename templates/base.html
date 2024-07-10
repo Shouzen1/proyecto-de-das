@@ -61,9 +61,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="#">Noticias</a>
                 </li>
-                {% if request.user.is_authenticated %}
+                {% if request.user.is_staff %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'crud_artista' %}">crud_artista</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'crud_obra' %}">crud_obra</a>
                 </li>
                 {% endif %}
             </ul>

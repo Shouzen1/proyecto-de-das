@@ -1,6 +1,6 @@
 
 from django.shortcuts import render
-from .forms import ArtistaForm
+from .forms import *
 from .models import Artista
 from django.shortcuts import render, redirect
 # Create your views here.
@@ -9,14 +9,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Artista, Obra, Carrito_de_Compra, Producto_Carrito
 from .forms import DireccionForm
+from django.contrib.admin.views.decorators import staff_member_required
 
+@staff_member_required(login_url='login')
 def crud_artista(request):
     if request.POST:
         print("POST")
-
-        if "obra_id" in request.POST:
-            print("La obra a editar es:", request.POST['obra_id'])
-
         if "artista_id" in request.POST:
             print("El autor a editar es:", request.POST['artista_id'])
             artista_id = request.POST['artista_id']
@@ -48,6 +46,8 @@ def crud_artista(request):
         carrito = None
 
     artistas = Artista.objects.all()
+    for artista in artistas:
+        artista.form = ArtistaForm(instance=artista)
     form = ArtistaForm()
 
     return render(request, 'tienda/crud_artista.html', {'artistas': artistas, 'carrito': carrito, 'form': form})
@@ -123,5 +123,51 @@ def realizar_pago(request):
     return render(request, 'compra.html', {'carrito': carrito})
 
 def Home(request):
-    context = {}
+    obras = Obra.objects.all()
+    context = {'obras': obras}
     return render(request, 'tienda/home.html', context)
+
+
+
+@staff_member_required(login_url='login')
+def crud_obra(request):
+
+    if request.POST:
+        print("POST")
+
+        if "obra_id" in request.POST:
+            print("La obra a editar es:", request.POST['obra_id'])
+            obra_id = request.POST['obra_id']
+            obra = get_object_or_404(Obra, id=obra_id)
+            
+            if 'Editar_obra' in request.POST:
+                form = ObraForm(request.POST, instance=obra)
+                if form.is_valid():
+                    form.save()
+                    print("Lo hemos editado", obra)
+                return redirect('crud_obra')
+            
+            if 'Eliminar_obra' in request.POST:
+                obra.delete()
+                print("Lo hemos eliminado", obra)
+                return redirect('crud_obra')
+
+        if 'Crear_obra' in request.POST:
+            form = ObraForm(request.POST)
+            if form.is_valid():
+                form.save()
+                print("Obra creada")
+                return redirect('crud_obra')
+
+    carrito = request.user.carritos.filter(estado="pendiente")
+    if len(carrito) > 0:
+        carrito = carrito[0]
+    else:
+        carrito = None
+
+    obras = Obra.objects.all()
+    for obra in obras:
+        obra.form = ObraForm(instance=obra)
+    form = ObraForm()
+
+    return render(request, 'tienda/crud_obra.html', {'obras': obras, 'carrito': carrito, 'form': form})

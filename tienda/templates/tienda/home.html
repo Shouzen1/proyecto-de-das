@@ -3,4 +3,34 @@
 {% block contenido %}
     <h1>Home</h1>
     <p>Bienvenido a la página principal.</p>
+
+<table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Artista</th>
+                    <th>Precio</th>
+                    <th>Fecha de Creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+{% for obra in obras %}
+                    <tr>
+                        <td>{{ obra.nombre }}</td>
+                        <td>{{ obra.descripcion }}</td>
+                        <td>{{ obra.artista }}</td>
+                        <td>{{ obra.precio }}</td>
+                        <td>{{ obra.fecha }}</td>
+
+                        <td>
+                            Cantidad:<input type="text" name="cantidad">
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{obra.id}}">Agregar</button>
+                     
+                        </td>
+                    </tr>
+{% endfor %}
+</tbody>
+</table>
 {% endblock %}

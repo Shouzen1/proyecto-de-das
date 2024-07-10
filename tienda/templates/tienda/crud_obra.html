@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Obras{% endblock %}
+
+{% block contenido %}
+    <h1>Lista de Obras</h1>
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Artista</th>
+                    <th>Precio</th>
+                    <th>Fecha de Creación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for obra in obras %}
+                    <tr>
+                        <td>{{ obra.nombre }}</td>
+                        <td>{{ obra.descripcion }}</td>
+                        <td>{{ obra.artista }}</td>
+                        <td>{{ obra.precio }}</td>
+                        <td>{{ obra.fecha }}</td>
+
+                        <td>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{obra.id}}">Editar</button>
+                            <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{obra.id}}" data-id="{{ obra.id }}">Eliminar</button>
+                        </td>
+                    </tr>
+
+
+
+
+
+        <!-- Modal for Editing Obra {{obra.id}}-->
+        <div class="modal fade" id="editModal{{obra.id}}" tabindex="-1" aria-labelledby="editModalLabel{{obra.id}}" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{% url 'crud_obra' %}">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="editModalLabel">Editar Obra</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <input type="hidden" name="obra_id" value="{{obra.id}}">
+                            {{ obra.form.as_p }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary" name="Editar_obra">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+       
+        <!-- Modal for Deleting Obra -->
+        <div class="modal fade" id="deleteModal{{obra.id}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{% url 'crud_obra' %}">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Eliminar Obra</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Estás seguro de que deseas eliminar esta obra {{ obra.nombre }}?</p>
+                            <input type="hidden" name="obra_id" value="{{obra.id}}">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-danger" name="Eliminar_obra">Eliminar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Button to trigger modal for creating new Obra -->
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createModal">Crear Obra</button>
+    </div>
+        <!-- Modal for Creating Obra -->
+        <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <form method="post" action="{% url 'crud_obra' %}">
+                        {% csrf_token %}
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="createModalLabel">Crear Obra</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            {{ form.as_p }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-success" name="Crear_obra">Crear</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+{% endblock %}
+

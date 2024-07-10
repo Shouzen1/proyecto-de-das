@@ -49,6 +49,3 @@ def sign_out(request):
     messages.success(request, 'You have successfully logged out.')
     return redirect('home')
 
-def Home(request):
-    context = {}
-    return render(request, 'tienda/home.html', context)
