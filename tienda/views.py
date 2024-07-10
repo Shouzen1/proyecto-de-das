@@ -123,8 +123,12 @@ def realizar_pago(request):
     return render(request, 'compra.html', {'carrito': carrito})
 
 def Home(request):
+    artistas = Artista.objects.all()
     obras = Obra.objects.all()
-    context = {'obras': obras}
+    context = {
+        'artistas': artistas,
+        'obras': obras,
+    }
     return render(request, 'tienda/home.html', context)
 
 

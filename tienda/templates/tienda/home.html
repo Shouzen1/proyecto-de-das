@@ -1,36 +1,221 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
-    <h1>Home</h1>
-    <p>Bienvenido a la página principal.</p>
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    
+    h1 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+    
+    h2 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        color: #343a40;
+    }
+    
+    .table thead th {
+        background-color: #343a40;
+        color: #fff;
+    }
+    
+    .table tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+    
+    .table tbody tr:hover {
+        background-color: #e9ecef;
+    }
+    
+    .artist-list, .artwork-list, .cart {
+        margin-bottom: 30px;
+    }
+    
+    button.btn-primary {
+        background-color: #343a40;
+        border-color: #343a40;
+    }
+    .weather-widget {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 300px;
+        position: relative;
+        margin: 0 auto; /* Añade este estilo para centrar horizontalmente */
+    }
 
-<table class="table">
+    .weather-widget h1 {
+        margin: 10px 0;
+        font-size: 24px;
+    }
+
+    .weather-widget p {
+        margin: 5px 0;
+        font-size: 18px;
+    }
+
+    .ad-banner {
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        width: 100%;
+    }
+    </style>
+    <h1>Home</h1>
+    <p class="text-center">Bienvenido a la página principal.</p>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="artist-list">
+                <h2>Listado de Artistas</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for artista in artistas %}
+                            <tr>
+                                <td>{{ artista.nombre }}</td>
+                                <td>{{ artista.descripcion }}</td>
+                                <td>{{ artista.fecha }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="artwork-list">
+                <h2>Listado de Obras de Arte</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Descripción</th>
+                            <th>Artista</th>
+                            <th>Precio</th>
+                            <th>Fecha de Creación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for obra in obras %}
+                            <tr>
+                                <td>{{ obra.nombre }}</td>
+                                <td>{{ obra.descripcion }}</td>
+                                <td>{{ obra.artista.nombre }}</td>
+                                <td>{{ obra.precio }}</td>
+                                <td>{{ obra.fecha }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart">
+        <h2>Carrito de Compras</h2>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Nombre</th>
                     <th>Descripción</th>
                     <th>Artista</th>
                     <th>Precio</th>
-                    <th>Fecha de Creación</th>
+                    <th>Cantidad</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-{% for obra in obras %}
+                {% for obra in obras %}
                     <tr>
                         <td>{{ obra.nombre }}</td>
                         <td>{{ obra.descripcion }}</td>
-                        <td>{{ obra.artista }}</td>
+                        <td>{{ obra.artista.nombre }}</td>
                         <td>{{ obra.precio }}</td>
-                        <td>{{ obra.fecha }}</td>
-
                         <td>
-                            Cantidad:<input type="text" name="cantidad">
-                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editModal{{obra.id}}">Agregar</button>
-                     
+                            <input type="number" name="cantidad" value="1" min="1" class="form-control">
+                        </td>
+                        <td>
+                            <!-- <button class="btn btn-primary" onclick="agregarAlCarrito({{obra.id}})">Agregar</button> -->
                         </td>
                     </tr>
-{% endfor %}
-</tbody>
-</table>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <!-- #Clima Publicidad -->
+    <div class="weather-widget">
+        <div class="ad-banner">Publicidad</div>
+        <h1>Clima en Viña del Mar, Chile</h1>
+        <p id="temperature">Cargando...</p>
+        <p id="description">Cargando...</p>
+    </div>
+
+    <script>
+        const apiKey = '262b06162ba3443aa2d44752241505';
+        const city = 'Viña del Mar';
+        const apiUrl = `https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&lang=es`;
+    
+        fetch(apiUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error HTTP: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const temperature = data.current.temp_c;
+                const description = data.current.condition.text;
+                document.getElementById('temperature').textContent = `Temperatura: ${temperature}°C`;
+                document.getElementById('description').textContent = `Descripción: ${description}`;
+            })
+            .catch(error => {
+                document.getElementById('temperature').textContent = 'No se pudo cargar el clima';
+                document.getElementById('description').textContent = 'Por favor, inténtelo más tarde';
+                console.error('Error al obtener los datos del clima:', error);
+            });
+    </script>
+    <footer class="text-light bg-dark pt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Horario</h5>
+                    <ul class="list-unstyled">
+                        <li>Martes a domingo, 8 a 23 horas</li>
+                        <li>Cerrado todos los lunes y feriados irrenunciables</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Ubicación</h5>
+                    <p>Pradera de la Cruz<br>Santiago, Chile</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contacto</h5>
+                    <p>+56 938157795<br>informaciones@museonacional.cl</p>
+                    <h5>Síguenos</h5>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endblock %}
+
+
+
+<script>
+    function agregarAlCarrito(obraId) {
+        alert('Obra ' + obraId + ' agregada al carrito.');
+    }
+</script>
